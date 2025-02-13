@@ -1,0 +1,16 @@
+replace_inter:  1 1 ['Duke of Earl', 'Yertle', 'Sir Lancelot'] {'Duke of Earl': 0, 'Yertle': 1, 'Sir Lancelot': 2}
+['Duke of Earl', 'Yertle', 'Sir Lancelot'] 0 
+
+['Yertle', 'Yertle', 'Sir Lancelot'] 1 
+
+['Yertle', 'Duke of Earl', 'Sir Lancelot'] 2 
+
+replace_inter:  2 0 ['Duke of Earl', 'Yertle', 'Sir Lancelot'] {'Duke of Earl': 0, 'Yertle': 1, 'Sir Lancelot': 2}
+['Duke of Earl', 'Yertle', 'Sir Lancelot'] 0 
+
+['Duke of Earl', 'Yertle', 'Sir Lancelot'] 1 
+
+['Duke of Earl', 'Yertle', 'Sir Lancelot'] 2 
+
+['Duke of Earl', 'Yertle', 'Yertle'] 3 
+

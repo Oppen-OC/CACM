@@ -33,7 +33,7 @@ def replace_inter(from_idx, to_idx, queue, turtles_map):
         pointer += 1
         
     return new_queue
-    
+
 
 def resolver(n, ini, fin):
     # Map turtle names to their target positions

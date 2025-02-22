@@ -1,80 +1,43 @@
 import sys
-import math
-# import numpy as np
-
-def replace_inter(from_idx, to_idx, queue, turtles_map):
-    print("replace_inter: ", from_idx, to_idx, queue, turtles_map)
-    
-    # Create a list with the turtles to be replaced and their target positions
-    replace = [(turtle, turtles_map[turtle]) for turtle in queue[from_idx : to_idx + 1]]
-    # Sort the list by the target positions (from last to first)
-    replace = sorted(replace, key = lambda x: x[1], reverse = True)
-    
-    # Replace the turtles in the queue
-    new_queue = queue.copy()
-    pointer = 0
-    
-    # Add the replaced turtles
-    for turtle, _ in replace:
-        print(new_queue, pointer, '\n')
-        new_queue[pointer] = turtle
-        pointer += 1
-    
-        
-    # Add the remaining turtles
-    for idx in range(0, from_idx):
-        print(new_queue, pointer, '\n')
-        new_queue[pointer] = queue[idx]
-        pointer += 1
-        
-    for idx in range(to_idx + 1, len(queue)):
-        print(new_queue, pointer, '\n')
-        new_queue[pointer] = queue[idx]
-        pointer += 1
-        
-    return new_queue
-
 
 def resolver(n, ini, fin):
-    # Map turtle names to their target positions
-    turtles_map = {}
-    for idx in range(n):
-        turtles_map[fin[idx]] = idx
-        
-    for idx in range(n - 1, -1, -1):
-        if ini[idx] != fin[idx]:
-            elem_idx = ini.index(fin[idx])
-            ini = replace_inter(elem_idx + 1, idx, fin, turtles_map)
-            
-    print(ini)
-        
+    # Map each turtle's name to its position in the final stack
+    target_pos = {name: i for i, name in enumerate(fin)}
 
-def fun():
-    lines = sys.stdin.read().strip().split("\n")
-    pointer = 1
-    
-    for k in range (0, int(lines[0])):
-        n = int(lines[pointer]) # Tamaño de cada stack
-        size = n*2 + 1          # Tamaño del caso de prueba
+    # Identify the longest correct suffix in ini
+    correct_idx = n - 1
+    for i in range(n - 1, -1, -1):
+        if ini[i] == fin[correct_idx]:
+            correct_idx -= 1
+        if correct_idx < 0:
+            break
 
-        original = [0] * n # np.empty(n, dtype = str)
-        final = [0] * n # np.empty(n, dtype = str)
+    # The turtles to move are the ones before the correct suffix
+    turtles_to_move = ini[:correct_idx + 1]
 
-        for aux in range (0, size-1):
-            if aux <= math.floor(size/2) -1:
-                original[aux] = lines[aux + pointer +1]
-            else:
-                final[aux - math.floor(size/2) -1] = lines[aux + pointer]
-                
-        pointer += size         # Apunta al final del stack
-        resolver(n, original, final)
+    # Print in the reverse order they appear in the final stack
+    for turtle in reversed(fin):
+        if turtle in turtles_to_move:
+            print(turtle)
+    print()  # Blank line between test cases
 
 def main():
-    fun()
-    
+    lines = sys.stdin.read().strip().split("\n")
+    pointer = 0
+    k = int(lines[pointer])  # Number of test cases
+    pointer += 1
+
+    for _ in range(k):
+        n = int(lines[pointer])  # Stack size
+        pointer += 1
+
+        # Read original and final order
+        ini = lines[pointer:pointer + n]
+        pointer += n
+        fin = lines[pointer:pointer + n]
+        pointer += n
+
+        resolver(n, ini, fin)
+
 if __name__ == "__main__":
-    main()  
-    
-    # Numero de casos de prueba K 
-    # Tamaño de stack n
-    # Orden original de las tortugas (n posiciones)
+    main()

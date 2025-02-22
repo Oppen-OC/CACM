@@ -6,7 +6,6 @@ def reconstruct_numbers(N, sums):
     # Step 2: Extract a1, a2, a3 using the three smallest sums
     S1, S2, S3 = sums[0], sums[1], sums[2]
 
-
     a1 = (S1 + S2 - S3) // 2  # Using the derived formula
     a2 = S1 - a1
     a3 = S2 - a1
@@ -23,8 +22,6 @@ def reconstruct_numbers(N, sums):
     numbers.sort()  # Ensure non-descending order
     print(" ".join(map(str, numbers)))
 
-
-
 def main():
     for line in sys.stdin:
         data = list(map(int, line.split()))
@@ -35,8 +32,11 @@ def main():
         if len(sums) != expected_sums_count:
             print("Impossible")
             continue
-        
-        print(reconstruct_numbers(N, sums))
+
+        try:
+            reconstruct_numbers(N, sums)
+        except:
+            print("Impossible")  # Catch any errors due to inconsistency
 
 if __name__ == "__main__":
     main()

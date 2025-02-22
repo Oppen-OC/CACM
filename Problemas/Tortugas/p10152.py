@@ -1,11 +1,37 @@
 import sys
 import math
 
-def resolver(n, ini, fin):
-    inicial = [(x, ini[x]) for x in range(0, len(ini))]
-    final = [(x, fin[x]) for x in range(0, len(fin))]
-    print(inicial)
-    print(final)
+def stack_it(lista, elemento):
+    lista.remove(elemento)
+    lista.insert(0, elemento)
+    return lista
+
+
+def resolver(n, ini, fin):  
+    # Identificar el sufijo correcto más largo en ini
+    pointer = 0
+    for i in range(n-1, -1, -1):
+        if ini[i] != fin[i]:
+            pointer = i+1
+            break
+        
+    # Subset de tortugas a mover
+    actual = [(x, ini[x]) for x in range(0, pointer)] 
+    final =  [(x, fin[x]) for x in range(0, pointer)]
+    
+    actual = ini[:pointer]
+    final = fin[:pointer]
+    
+    
+    aux = [actual[i] == final[i] for i in range(0, pointer)]
+    
+    for i in range(pointer-1, -1, -1):  # Iterate backwards from n-1 to 0:
+        while(aux[i] == False):
+            if actual[i] != final[i]:
+                print(actual[i])
+                actual = stack_it(actual, actual[i])
+                aux = [actual[i] == final[i] for i in range(0, pointer)]
+    print("\n")
 
 def fun():
     lines = sys.stdin.read().strip().split("\n")

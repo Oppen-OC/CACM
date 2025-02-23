@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <fstream>
 
 using namespace std;
 
-// Función para verificar si un número es primo
 bool is_prime(int num) {
     if (num < 2) return false;
     if (num % 2 == 0 || num % 3 == 0 || num % 5 == 0 || num % 7 == 0) 
@@ -17,7 +17,6 @@ bool is_prime(int num) {
     return true;
 }
 
-// Función para extender la lista de primos hasta 'num'
 void extendPrime(vector<bool>& primes, int num) {
     int currentSize = primes.size();
     primes.resize(num + 1, false);
@@ -27,20 +26,25 @@ void extendPrime(vector<bool>& primes, int num) {
     }
 }
 
-// Función fun(x) = x² + x + 41
 int fun(int x) {
     return x * x + x + 41;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+
+    string inputFileName = argv[1];
+    string outputFileName = argv[2];
+
+    ifstream inputFile(inputFileName);
+    ofstream outputFile(outputFileName);
+
     vector<bool> primes;
     int a, b;
-    
-    while (cin >> a >> b) {
+
+    while (inputFile >> a >> b) {
         int maxV = fun(b);
         
         if (maxV >= primes.size()) {
-            cout << "Extendemos " << primes.size() << " hasta " << maxV << endl;
             extendPrime(primes, maxV);
         }
 
@@ -52,8 +56,12 @@ int main() {
         }
 
         double percentage = (double)primeCount / (b - a + 1) * 100;
-        printf("%.2f\n", percentage);
+        outputFile << fixed;
+        outputFile.precision(2);
+        outputFile << percentage << endl;
     }
 
+    inputFile.close();
+    outputFile.close();
     return 0;
 }

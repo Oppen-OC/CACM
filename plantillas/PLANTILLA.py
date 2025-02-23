@@ -1,10 +1,16 @@
 
 def fun():
     # Primera linea input()
-    print("La primera linea es: ", input())
+    print("Hola Mundo")
 
 def main():
-    fun()
+    try:
+        while True:
+            input()
+            fun()
+            
+    except EOFError:
+        pass
     
 if __name__ == "__main__":
     main()

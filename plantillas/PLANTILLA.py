@@ -1,13 +1,12 @@
 
-def fun():
+def fun(string):
     # Primera linea input()
-    print("Hola Mundo")
+    print("Hola Mundo:", string)
 
 def main():
     try:
         while True:
-            input()
-            fun()
+            fun(input())
             
     except EOFError:
         pass

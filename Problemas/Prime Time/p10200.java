@@ -11,11 +11,10 @@ public class p10200 {
     static {
         sieve = new boolean[MAX + 1];
         Arrays.fill(sieve, true);
-        sieve[0] = sieve[1] = false;
 
-        for (int i = 2; i * i <= MAX; i++) {
+        for (int i = 2; i * formula(i) <= MAX; i++) {
             if (sieve[i]) {
-                for (int j = i * i; j <= MAX; j += i) {
+                for (int j = i * i; formula(j) <= MAX; j += i) {
                     sieve[j] = false;
                 }
             }
